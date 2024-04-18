@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 public class Main {
     static Scanner line = new Scanner(System.in);//создан сканнер
     static String upEnterString;//создана переменная для ввода данных
@@ -17,23 +16,13 @@ public class Main {
             "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV",
             "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"};
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws errorFormatII, errorFormat, errorSistema, errorproverkaNaMinus, errorVelicinaTale {
         System.out.println("Input :");
         upEnterString = line.nextLine();//ввели выражение
         zupEnterString = upEnterString.replaceAll(" ", "");
         String enterString = zupEnterString.toUpperCase();
-        try {
-            proverkaNaFormatII(zupEnterString);
-        }catch (errorFormatII e){
-            System.out.println("throws Exception //т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор(+,-,/,*)");
-            System.exit(0);
-        }
-        try {
-            proverkaNaFormat(zupEnterString);
-        }catch (errorFormat e){
-            System.out.println("throws Exception //т.к. строка не является математической операцией");
-            System.exit(0);
-        }
+     proverkaNaFormatII(zupEnterString);
+       proverkaNaFormat(zupEnterString);
 
 
             calc(enterString);//выделили из выражения числа
@@ -44,44 +33,20 @@ public class Main {
                     isRim(enterString);//проверка на римскость чисел
 
                     if (isRim(enterString) == true) {    //выполнение действия если числа римские
-                        try {
-                            proverkaNaSistemu(a,b);
-                        } catch (errorSistema e){
-                            System.out.println("throws Exception //т.к. Используются одновременно разные системы счисления");
-                            System.exit(0);
-                        }
-
-                        try {
+                     proverkaNaSistemu(a,b);
                             operation(a, b);
                             proverkaVelicini(a,b);
-                        } catch (errorVelicinaTale e){
-                            System.out.println("throws Exception //т.к. числа больше десяти");
-                            System.exit(0);
-                        }
-                        try {
                             resultInRim(result);
                             proverkaNaMinus(result);
                             System.out.println("Output :");
                             System.out.println(resultRim);
-                        } catch (errorproverkaNaMinus e){
-                            System.out.println("throws Exception //т.к. в римской системе нет отрицательных чисел");
-                        }
                     }
                     if (isRim(enterString) == false) {      //выполнение действия если числа арабские
-
-                        try {
                             proverkaVelicini(a,b);
                             operation(a, b);
                             System.out.println("Output :");
                             System.out.println(result);
-                        } catch (errorVelicinaTale e){
-                            System.out.println("Output :");
-                            System.out.println("throws Exception //т.к. числа больше десяти");
-
                         }
-                    }
-
-
         }
 
     public static String calc(String enterString) {
